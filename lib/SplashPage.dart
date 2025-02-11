@@ -15,7 +15,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     // Navigate to the main screen after 20 seconds
-    Timer(const Duration(seconds: 3), () {
+    Timer(const Duration(seconds: 30), () {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => AmbulanceServicesPage()),
@@ -67,19 +67,35 @@ class _SplashScreenState extends State<SplashScreen> {
           ),
 
           const SizedBox(height: 20), // Space between "SOS" and the row below
-
-          // Row with logo and "Government of Philippines"
-          Row(
+Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(
-                'assets/images/pines.png', // Replace with your logo path
-                width: 20,
-                height: 20,
-              ),
-              const SizedBox(width: 10),
+             Container(
+  width: 70,
+  height: 70,
+  padding: const EdgeInsets.all(5),
+  decoration: BoxDecoration(
+    shape: BoxShape.circle, // Makes it circular
+    color: Colors.white, // Background color (adjust as needed)
+    boxShadow: [
+      BoxShadow(
+        color: Colors.grey.withOpacity(0.5),
+        spreadRadius: 2,
+        blurRadius: 5,
+        offset: Offset(0, 3), // Adds a subtle shadow
+      ),
+    ],
+  ),
+  child: ClipOval(
+    child: Image.asset(
+      'assets/images/speaker.avif', // Replace with your image path
+      fit: BoxFit.cover, // Ensures the image covers the circular area
+    ),
+  ),
+),
+              const SizedBox(width: 16),
               const Text(
-                'GOVERNMENT OF PHILIPPINES',
+                'iCanSave Health Alert App',
                 style: TextStyle(
                   fontSize: 14,
                   
@@ -89,8 +105,11 @@ class _SplashScreenState extends State<SplashScreen> {
             ],
           ),
 
-          const Spacer(), // Pushes the ambulance section to the bottom
-
+    
+   
+          // Row with logo and "Government of Philippines"
+             const Spacer(), 
+              // Pushes the ambulance section to the bottom
           // Clipper Container with a Curved Top
           ClipPath(
             clipper: TopCurveClipper(),
@@ -99,13 +118,29 @@ class _SplashScreenState extends State<SplashScreen> {
               height: 300,
               width: double.infinity,
               alignment: Alignment.center,
-              child: Image.asset(
-                'assets/images/splash.webp', // Replace with your ambulance image path
-                width: 250,
-                height: 250,
+              child: Column(
+                children: [
+                  Image.asset(
+                    'assets/images/splash.webp', // Replace with your ambulance image path
+                    width: 250,
+                    height: 250,
+                  ),
+                  SizedBox(height: 15),
+                  Center(
+            child: Text(
+              'Afrosoft IT Solutions',
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.white,
               ),
             ),
           ),
+                ],
+              ),
+            ),
+          ),
+          
+         
         ],
       ),
     );
