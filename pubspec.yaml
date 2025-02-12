@@ -38,7 +38,9 @@ dependencies:
   carousel_slider: ^5.0.0
   dots_indicator: ^3.0.0
   country_code_picker: ^3.2.0
-  google_maps_flutter: ^2.10.0
+  firebase_database: ^11.1.6
+  firebase_messaging: ^15.1.5
+  google_maps_flutter: ^2.5.3
 
 dev_dependencies:
   flutter_launcher_icons: "^0.14.2"
