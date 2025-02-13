@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'DeafPage.dart'; // Google Maps package
@@ -10,18 +12,23 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late GoogleMapController mapController;
 
-  // Initial camera position on map
-  final CameraPosition _initialPosition = CameraPosition(
-    target: LatLng(14.5995, 120.9842), // Example: Philippines (adjust coordinates)
-    zoom: 14.0,
+  final Completer<GoogleMapController> _controller =
+  Completer<GoogleMapController>();
+
+  static const CameraPosition _kGooglePlex = CameraPosition(
+    target: LatLng(37.42796133580664, -122.085749655962),
+    zoom: 14.4746,
   );
 
-  // Handling map controller
-  void _onMapCreated(GoogleMapController controller) {
-    mapController = controller;
-  }
+  static const CameraPosition _kLake = CameraPosition(
+      bearing: 192.8334901395799,
+      target: LatLng(37.43296265331129, -122.08832357078792),
+      tilt: 59.440717697143555,
+      zoom: 19.151926040649414);
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -67,12 +74,16 @@ class _HomePageState extends State<HomePage> {
       body: Stack(
         children: [
           // Google Map
-          GoogleMap(
-            initialCameraPosition: _initialPosition,
-            onMapCreated: _onMapCreated,
-            mapType: MapType.normal,
-            myLocationEnabled: true,
-            myLocationButtonEnabled: true,
+          Container(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: GoogleMap(
+              mapType: MapType.normal,
+              initialCameraPosition: _kGooglePlex,
+              onMapCreated: (GoogleMapController controller) {
+                _controller.complete(controller);
+              },
+            ),
           ),
 
           // Round red SOS button at the center above the bottom navbar
