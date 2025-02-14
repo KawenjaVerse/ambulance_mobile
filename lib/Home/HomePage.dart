@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:ambulance_app/Home/ContactUs/ContactUsPage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'DeafPage.dart'; // Google Maps package
@@ -120,11 +121,15 @@ class _HomePageState extends State<HomePage> {
                   _bottomNavItem(Icons.location_on, 'Nearby', Colors.green),
                   GestureDetector(
                      onTap: () {
-                      // Add navigation logic here
                       Navigator.push(context, MaterialPageRoute(builder: (context) => DeafPage()));
                     },
                     child: _bottomNavItem(Icons.accessibility, 'I am Deaf', Colors.orange)),
-                  _bottomNavItem(Icons.notifications, 'Notify Passerby', Colors.purple),
+                  GestureDetector(
+                      child: _bottomNavItem(Icons.support_agent, 'Support', Colors.red),
+                      onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => ContactUsPage() ) );
+                      }
+                  ),
                 ],
               ),
             ),

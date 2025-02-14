@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'package:ambulance_app/Authentication/RegisterPage.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'AmbulanceService.dart';
 import 'Home/HomePage.dart'; // Ensure this import points to your HomePage
 
@@ -16,10 +18,10 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     // Navigate to the main screen after 20 seconds
     Timer(const Duration(seconds: 8), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => AmbulanceServicesPage()),
-      );
+
+      //ambulance_services_seen
+      goToNextScreen();
+
     });
   }
 
@@ -144,6 +146,34 @@ Row(
         ],
       ),
     );
+  }
+
+  Future<void> goToNextScreen() async {
+    var prefs = await SharedPreferences.getInstance();
+    bool ambulance_services_seen = prefs.getBool('ambulance_services_seen') ?? false;
+    print("ambulance_services_seen: $ambulance_services_seen");
+
+    if (ambulance_services_seen == false) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => AmbulanceServicesPage()),
+      );
+    } else {
+      //if logged in
+      var isLoggedIn = prefs.getBool('is_user_logged_in') ?? false;
+
+      if (isLoggedIn) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => HomePage()),
+        );
+      } else {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => RegisterPage()),
+        );
+      }
+    }
   }
 }
 

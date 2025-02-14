@@ -3,6 +3,7 @@ import 'package:ambulance_app/Home/HomePage.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AmbulanceServicesPage extends StatefulWidget {
   const AmbulanceServicesPage({super.key});
@@ -122,8 +123,14 @@ class _AmbulanceServicesPageState extends State<AmbulanceServicesPage> {
           Padding(
             padding: const EdgeInsets.only(bottom: 40), // Adjust bottom padding
             child: GestureDetector(
-              onTap: () {
+              onTap: () async {
                 // Add navigation logic here
+
+
+                await SharedPreferences.getInstance().then((prefs) {
+                  prefs.setBool('ambulance_services_seen', true);
+                });
+
                  Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => RegisterPage()),
