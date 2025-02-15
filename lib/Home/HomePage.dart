@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:ambulance_app/Home/ContactUs/ContactUsPage.dart';
+import 'package:ambulance_app/Home/Notification/NotificationPage.dart';
 import 'package:ambulance_app/Home/Offers/OffersPage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -115,7 +116,7 @@ class _HomePageState extends State<HomePage> {
                   GestureDetector(
                       child: _bottomNavItem(Icons.notifications, 'Notification', Colors.red),
                       onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => ContactUsPage() ) );
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => NotificationPage() ) );
                       }
                   ),
                 ],
