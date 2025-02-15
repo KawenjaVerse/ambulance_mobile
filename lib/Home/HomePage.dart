@@ -1,8 +1,10 @@
 import 'dart:async';
 
+import 'package:ambulance_app/AmbulanceService.dart';
 import 'package:ambulance_app/Home/ContactUs/ContactUsPage.dart';
 import 'package:ambulance_app/Home/Notification/NotificationPage.dart';
 import 'package:ambulance_app/Home/Offers/OffersPage.dart';
+import 'package:ambulance_app/Home/SOS/SosPage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'DeafPage.dart';
@@ -55,11 +57,31 @@ class _HomePageState extends State<HomePage> {
               leading: Icon(Icons.person),
             ),
             ListTile(
+              title: Text('Health Tips'),
+              leading: Icon(Icons.settings),
+            ),
+            ListTile(
+              title: Text('Reminders'),
+              leading: Icon(Icons.alarm),
+            ),
+            ListTile(
+              title: Text('Feedback'),
+              leading: Icon(Icons.reply_all),
+            ),
+            ListTile(
+              title: Text('FAQ'),
+              leading: Icon(Icons.question_answer_outlined),
+            ),
+            ListTile(
               title: Text('Settings'),
               leading: Icon(Icons.settings),
             ),
             ListTile(
-              title: Text('Log Out'),
+              title: Text('About'),
+              leading: Icon(Icons.info),
+            ),
+            ListTile(
+              title: Text('Logout'),
               leading: Icon(Icons.exit_to_app),
             ),
           ],
@@ -107,7 +129,11 @@ class _HomePageState extends State<HomePage> {
                     },
                     child: _bottomNavItem(Icons.group, 'Forum', Colors.red)
                   ),
-                  _bottomNavItem(Icons.support_agent_outlined, 'Need Help', Colors.green),
+                  GestureDetector(
+                      onTap: (){
+                        _showNeedHelpDialog();
+                      },
+                      child: _bottomNavItem(Icons.support_agent_outlined, 'Need Help', Colors.green)),
                   GestureDetector(
                      onTap: () {
                       Navigator.push(context, MaterialPageRoute(builder: (context) => OffersPage()));
@@ -134,7 +160,7 @@ class _HomePageState extends State<HomePage> {
               alignment: Alignment.center,
               child: GestureDetector(
                 onTap: (){
-                   Navigator.push(context, MaterialPageRoute(builder: (context) => DeafPage() ) );
+                   Navigator.push(context, MaterialPageRoute(builder: (context) => SosPage() ) );
                 },
                 child: Container(
                   margin: const EdgeInsets.all(10),
@@ -172,13 +198,13 @@ class _HomePageState extends State<HomePage> {
   }
 
   // SOS Button AlertDialog
-  void _showSOSDialog() {
+  void _showNeedHelpDialog() {
     showDialog(
       context: context,
       barrierDismissible: false, // Prevent closing the dialog by tapping outside
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Emergency activation'),
+          title: const Text('Need Help'),
           content: Column(
            mainAxisSize: MainAxisSize.min, // To fit the content size
             children: [
@@ -187,15 +213,14 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   CircleAvatar(
                     radius: 20,
-                    backgroundImage: AssetImage('assets/images/icons8-shake-phone-100.png'), // Add your image path
+                    backgroundImage: AssetImage('assets/images/icons8-outgoing-call-96.png'), // Add your image path
                   ),
                   const SizedBox(width: 10),
              Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: const [
-                      Text('Mobile Shake', style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold)),
-                      Text('''Shake your Phone thrice to 
-generate SOS Emergency Request.'''
+                      Text('Direct Call', style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold)),
+                      Text('''+639189031417.'''
                       , style: TextStyle(fontSize: 11,color: Colors.grey)),
                     ],
                   ),
@@ -204,18 +229,18 @@ generate SOS Emergency Request.'''
               const SizedBox(height: 10),
               // Second row with Gesture Activation
               Row(
+
                 children: [
                   CircleAvatar(
                     radius: 20,
-                    backgroundImage: AssetImage('assets/images/icons8-hand-drag-100.png'), // Add your image path
+                    backgroundImage: AssetImage('assets/images/icons8-whatsapp-96.png'), // Add your image path
                   ),
                   const SizedBox(width: 10),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: const [
-                      Text('Gesture Activation', style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold)),
-                      Text('''Request emergency bt swiping three
-fingers down on Home screen''', style: TextStyle(fontSize: 11,color: Colors.grey)),
+                      Text('Whatsapp', style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold)),
+                      Text('''https://wa.me/639189031417''', style: TextStyle(fontSize: 11,color: Colors.grey)),
                     ],
                   ),
                 ],
@@ -223,22 +248,11 @@ fingers down on Home screen''', style: TextStyle(fontSize: 11,color: Colors.grey
             ],
           ),
           actions: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(); // Close the dialog
-                  },
-                  child: const Text('Skip'),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(); // Close the dialog
-                  },
-                  child: const Text('Enable Now',style: TextStyle(color: Color.fromARGB(255, 91, 14, 8)),),
-                ),
-              ],
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: const Text('Cancel'),
             ),
           ],
         );

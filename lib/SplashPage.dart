@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     // Navigate to the main screen after 20 seconds
-    Timer(const Duration(seconds: 8), () {
+    Timer(const Duration(seconds: 3), () {
 
       //ambulance_services_seen
       goToNextScreen();
