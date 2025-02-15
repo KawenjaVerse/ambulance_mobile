@@ -4,9 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../utils/Helper.dart';
-import '../call/VideoPage.dart';
-import '../call/join_screen.dart';
-import '../call/meeting_screen.dart';
 
 class ChatPeoplePage extends StatefulWidget{
   @override
@@ -56,10 +53,11 @@ class _ChatPeoplePage extends State<ChatPeoplePage>{
       });
     }, (value){
       if(value["status"] == "success"){
-        Navigator.push(context, MaterialPageRoute(builder: (context) => MeetingScreen(
+        /*Navigator.push(context, MaterialPageRoute(builder: (context) => MeetingScreen(
           meetingId: call["meeting_id"],
           token: AUTO_GENERATED_TOKEN,
-        ) ) );
+        ) )
+        );*/
       }
     }, (error){
 

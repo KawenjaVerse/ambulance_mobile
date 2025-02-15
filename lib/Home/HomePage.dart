@@ -1,9 +1,11 @@
 import 'dart:async';
 
 import 'package:ambulance_app/Home/ContactUs/ContactUsPage.dart';
+import 'package:ambulance_app/Home/Offers/OffersPage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'DeafPage.dart'; // Google Maps package
+import 'DeafPage.dart';
+import 'Forum/ForumPage.dart'; // Google Maps package
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -65,7 +67,7 @@ class _HomePageState extends State<HomePage> {
 
       // AppBar
       appBar: AppBar(
-        title: const Text('Hi User'),
+        title: const Text('Ambulansiya App'),
         backgroundColor: Colors.red,
         elevation: 0,
         foregroundColor: Colors.white,
@@ -87,45 +89,31 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
 
-          // Round red SOS button at the center above the bottom navbar
-          Positioned(
-            bottom: 160, // Adjust position
-            left: 0,
-            right: 0,
-            child: Align(
-              alignment: Alignment.center,
-              child: GestureDetector(
-                onTap: _showSOSDialog,
-                child: CircleAvatar(
-                  radius: 60, // Size of the avatar
-                  backgroundColor: Colors.red,
-                  child: const Text('SOS', style: TextStyle(fontSize: 20, color: Colors.white)),
-                ),
-              ),
-            ),
-          ),
-
           // Bottom Navbar with curved shape near SOS button
           Positioned(
             bottom: 0,
             left: 0,
             right: 0,
             child: Container(
+              color: Colors.red,
               height: 150, // Adjusted height for better layout
-              color: Colors.white,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   GestureDetector(
-                    child: _bottomNavItem(Icons.medical_services, 'E-services', Colors.blue)),
-                  _bottomNavItem(Icons.location_on, 'Nearby', Colors.green),
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ForumPage()));
+                    },
+                    child: _bottomNavItem(Icons.group, 'Forum', Colors.red)
+                  ),
+                  _bottomNavItem(Icons.support_agent_outlined, 'Need Help', Colors.green),
                   GestureDetector(
                      onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => DeafPage()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => OffersPage()));
                     },
-                    child: _bottomNavItem(Icons.accessibility, 'I am Deaf', Colors.orange)),
+                    child: _bottomNavItem(Icons.card_giftcard, 'Offers', Colors.orange)),
                   GestureDetector(
-                      child: _bottomNavItem(Icons.support_agent, 'Support', Colors.red),
+                      child: _bottomNavItem(Icons.notifications, 'Notification', Colors.red),
                       onTap: () {
                           Navigator.push(context, MaterialPageRoute(builder: (context) => ContactUsPage() ) );
                       }
@@ -134,6 +122,33 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
+
+
+          // Round red SOS button at the center above the bottom navbar
+          Positioned(
+            bottom: 110, // Adjust position
+            left: 0,
+            right: 0,
+            child: Align(
+              alignment: Alignment.center,
+              child: GestureDetector(
+                onTap: (){
+                   Navigator.push(context, MaterialPageRoute(builder: (context) => DeafPage() ) );
+                },
+                child: Container(
+                  margin: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                    border: Border.all(color: Colors.white, width: 8),
+                    shape: BoxShape.circle,
+                  ),
+                  padding: const EdgeInsets.all(40),
+                  child: const Text('SOS', style: TextStyle(fontSize: 20, color: Colors.white)),
+                ),
+              ),
+            ),
+          ),
+
         ],
       ),
     );
@@ -146,11 +161,11 @@ class _HomePageState extends State<HomePage> {
       children: [
         CircleAvatar(
           radius: 25,
-          backgroundColor: color,
-          child: Icon(icon, size: 30, color: Colors.white),
+          backgroundColor: Colors.white,
+          child: Icon(icon, size: 30, color: Colors.red),
         ),
         const SizedBox(height: 5),
-        Text(label, style: const TextStyle(fontSize: 12, color: Colors.black)),
+        Text(label, style: const TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.bold)),
       ],
     );
   }

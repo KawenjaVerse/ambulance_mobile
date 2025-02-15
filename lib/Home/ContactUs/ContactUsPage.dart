@@ -1,4 +1,3 @@
-import 'package:ambulance_app/Home/ContactUs/call/join_screen.dart';
 import 'package:ambulance_app/Home/ContactUs/chats/ChatPeoplePage.dart';
 import 'package:ambulance_app/utils/Helper.dart';
 import 'package:flutter/cupertino.dart';
@@ -74,9 +73,11 @@ class _ContactUsPage extends State<ContactUsPage>{
                     launchURL("tel:+254712345678");
                   else if( actions[index]["id"] == 2 )
                     launchURL("sms:+254712345678");
-                  else if( actions[index]["id"] == 4 )
-                     Navigator.push(context, MaterialPageRoute(builder: (context) => JoinScreen() ) );
+                  else if( actions[index]["id"] == 4 ){
+                    //Navigator.push(context, MaterialPageRoute(builder: (context) => JoinScreen() ) );
                     //launchURL("https://zoom.us/j/1234567890");
+                  }
+
                 },
                 child: Container(
                   width: 150,
